@@ -1,7 +1,7 @@
 set -x
 set -e
 
-# the two disks
+# the disk
 geom0=ada0
 
 # installation files be here:
@@ -66,10 +66,11 @@ gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 $geom0
 # no idea why -j fails....
 #newfs -U -j /dev/mirror/boot
 #newfs -U /dev/mirror/boot
-newfs -U /dev/mirror/boot
+newfs -U /dev/gpt/boot
 
 pool=tank
-zpool create -f -m none -o altroot=$base -o cachefile=/tmp/zpool.cache $pool mirror /dev/gpt/zroot0.eli /dev/gpt/zroot1.eli
+#zpool create -f -m none -o altroot=$base -o cachefile=/tmp/zpool.cache $pool mirror /dev/gpt/zroot0.eli /dev/gpt/zroot1.eli
+zpool create -f -m none -o altroot=$base -o cachefile=/tmp/zpool.cache $pool /dev/gpt/zroot.eli
 
 root=$pool/root
 zfs create -o mountpoint=/                               $root
