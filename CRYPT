@@ -3,7 +3,6 @@ set -e
 
 # the two disks
 geom0=ada0
-geom1=ada1
 
 # installation files be here:
 bsd=/usr/freebsd-dist
@@ -28,23 +27,19 @@ base=/mnt
 ufsdir=/xboot
 
 gpart destroy -F $geom0 || true
-gpart destroy -F $geom1 || true
 gpart create -s gpt $geom0
-gpart create -s gpt $geom1
 gpart add -b 64 -s 512k  -t freebsd-boot       $geom0
-gpart add -b 64 -s 512k  -t freebsd-boot       $geom1
-gpart add -l boot0 -s 1G -t freebsd-ufs  -a 4k $geom0 # 512M is absolute minimum, the kernel is so large.
-gpart add -l boot1 -s 1G -t freebsd-ufs  -a 4k $geom1
-gpart add -l swap0 -s 2G -t freebsd-swap -a 4k $geom0
-gpart add -l swap1 -s 2G -t freebsd-swap -a 4k $geom1
-gpart add -l zroot0      -t freebsd-zfs  -a 4k $geom0
-gpart add -l zroot1      -t freebsd-zfs  -a 4k $geom1
+gpart add -l boot -s 1G -t freebsd-ufs  -a 4k $geom0 # 512M is absolute minimum, the kernel is so large.
+gpart add -l swap -s 2G -t freebsd-swap -a 4k $geom0
+gpart add -l zroot      -t freebsd-zfs  -a 4k $geom0
 
-kldload geom_mirror || true
-gmirror label -b load -F swap /dev/gpt/swap0 /dev/gpt/swap1
-gmirror label -b load -F boot /dev/gpt/boot0 /dev/gpt/boot1
+#kldload geom_mirror || true
+#gmirror label -b load -F swap /dev/gpt/swap0 /dev/gpt/swap1
+#gmirror label -b load -F boot /dev/gpt/boot0 /dev/gpt/boot1
 
-geli onetime -d -e AES-XTS -l 256 -s 4096 /dev/mirror/swap
+#geli onetime -d -e AES-XTS -l 256 -s 4096 /dev/mirror/swap
+geli onetime -d -e AES-XTS -l 256 -s 4096 /dev/gpt/swap
+
 
 set +x
 echo -n Password:
@@ -55,16 +50,14 @@ echo $pw > /tmp/pw
 echo ""
 set -x
 
-geli init -s 4096 -J /tmp/pw /dev/gpt/zroot0
-geli init -s 4096 -J /tmp/pw /dev/gpt/zroot1
+geli init -s 4096 -J /tmp/pw /dev/gpt/zroot
 geli attach -j /tmp/pw /dev/gpt/zroot0
-geli attach -j /tmp/pw /dev/gpt/zroot1
 
 gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 $geom0
-gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 $geom1
 
 # no idea why -j fails....
 #newfs -U -j /dev/mirror/boot
+#newfs -U /dev/mirror/boot
 newfs -U /dev/mirror/boot
 
 pool=tank
@@ -128,20 +121,24 @@ zpool import -o altroot=$base -o cachefile=/tmp/zpool.cache $pool
 cp /tmp/zpool.cache $base/boot/zfs/
 
 [ ! -d $base$ufsdir ] && mkdir $base$ufsdir
-mount /dev/mirror/boot $base$ufsdir
+###mount /dev/mirror/boot $base$ufsdir
+mount /dev/gpt/boot $base$ufsdir
 cp -pRP $base/boot $base$ufsdir
 rm -rf $base/boot
 ln -s ${ufsdir#/}/boot $base/boot
 chflags -h sunlink $base/boot
 tar -xpPJf $bsd/kernel.txz -C $base
 
-echo /dev/mirror/boot $ufsdir ufs  rw 1 1 >> /mnt/etc/fstab
-echo /dev/mirror/swap.eli none   swap sw 0 0 >> /mnt/etc/fstab
+#echo /dev/mirror/boot $ufsdir ufs  rw 1 1 >> /mnt/etc/fstab
+echo /dev/gpt/boot $ufsdir ufs  rw 1 1 >> /mnt/etc/fstab
+#echo /dev/mirror/swap.eli none   swap sw 0 0 >> /mnt/etc/fstab
+echo /dev/gpt/swap.eli none   swap sw 0 0 >> /mnt/etc/fstab
 
 echo 'geom_eli_load="YES"'           >> $base/boot/loader.conf
-echo 'geom_mirror_load="YES"'        >> $base/boot/loader.conf
+#echo 'geom_mirror_load="YES"'        >> $base/boot/loader.conf
 echo 'zfs_load="YES"'                >> $base/boot/loader.conf
-echo vfs.root.mountfrom=\"ufs:/dev/mirror/boot\" >> $base/boot/loader.conf
+#echo vfs.root.mountfrom=\"ufs:/dev/mirror/boot\" >> $base/boot/loader.conf
+echo vfs.root.mountfrom=\"ufs:/dev/gpt/boot\" >> $base/boot/loader.conf
 
 # -- Enable daily status reporting
 echo 'daily_status_gmirror_enable="YES"' >> $base/etc/periodic.conf
