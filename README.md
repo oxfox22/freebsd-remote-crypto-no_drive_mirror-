@@ -1,4 +1,5 @@
 # FreeBSD disk encryption with zfs, mirroring and remote-boot functionality
+##This fork usese only one disc (instead two mirrord discs) and should run on FreeBSD 13.2 and 14.0
 
 This repository contiains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
 
