@@ -1,5 +1,5 @@
-# FreeBSD disk encryption with zfs, mirroring and remote-boot functionality
-##This fork usese only one drive (instead two mirrord drives) and should run on FreeBSD 13.2 and 14.0
+# FreeBSD disk encryption with zfs and remote-boot functionality
+##This fork uses only one drive (instead two mirrord drives) and should run on FreeBSD 13.2 and 14.0
 
 This repository contains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
 
@@ -24,12 +24,12 @@ fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto_sec42/mast
 fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto_sec42/master/PREBOOT
 ```
 
-Check the names of your drive.
+Check the name of your drive.
 ```
 dmesg|grep sectors
 ```
 
-If they are not "ada0" and "ada1", you will need to change the `geom0=` and `geom1=` lines at the top of the `CRYPT` script.
+If it is not "ada0", you will need to change the `geom0=` line at the top of the `CRYPT` script.
 
 Now run the script
 
@@ -37,7 +37,7 @@ Now run the script
 sh CRYPT
 ```
 
-It will ask you for your crypt passphrase (only once, so type carefully), later throw you into `vi` to edit a minimal `/etc/rc.conf` (set the hostname and IP) and after you quit the vi it should end with "All ok"
+It will ask you for your crypt passphrase (only once, so type carefully), later throw you into `ee` to edit a minimal `/etc/rc.conf` (set the hostname and IP) and after you quit the vi it should end with "All ok"
 
 After that, you can remove your installation media and reboot the machine. It will come up with a shell. Run "sh DWIM" and enter your passphrase to boot to the final system.
 
@@ -102,10 +102,6 @@ and you will be asked for the crypto passphrase (twice), after which the boot wi
 The `SSH` script is a template on how to enable SSH from the setup shell. This might be a useful starting point if you want to replicate this setup on a remote machine without console access.
 
 If you have a dropbear binary in `bin/` during the setup run of `CRYPT`, it will already copy it to the correct place.
-
-The `RE-FIX` script is an example on how to recover from a failed disk after it has been replaced.
-
-Essentially it is a copy of the relevant lines from the `CRYPT` script.
 
 # Help
 
