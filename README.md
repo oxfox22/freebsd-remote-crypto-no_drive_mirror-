@@ -1,5 +1,5 @@
 # FreeBSD disk encryption with zfs, mirroring and remote-boot functionality
-##This fork usese only one disc (instead two mirrord discs) and should run on FreeBSD 13.2 and 14.0
+##This fork usese only one drive (instead two mirrord drives) and should run on FreeBSD 13.2 and 14.0
 
 This repository contiains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
 
@@ -20,11 +20,11 @@ in the shell, get your network up and running, e.g. with
 then fetch the files from this repo. For example directly from github:
 
 ```
-fetch https://raw.githubusercontent.com/Sec42/freebsd-remote-crypto/master/CRYPT
-fetch https://raw.githubusercontent.com/Sec42/freebsd-remote-crypto/master/PREBOOT
+fetch https://raw.githubusercontent.com//oxfox22/freebsd-remote-crypto/master/CRYPT
+fetch https://raw.githubusercontent.com//oxfox22/freebsd-remote-crypto/master/PREBOOT
 ```
 
-Check the names of your two drives.
+Check the names of your drive.
 ```
 dmesg|grep sectors
 ```
