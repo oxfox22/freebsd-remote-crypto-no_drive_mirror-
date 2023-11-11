@@ -146,7 +146,7 @@ cat <<EOM > $dst/root/FIX
 PATH=${PATH}:/bin:/sbin:/rescue
 fsck -p
 geli attach gpt/zroot0
-geli attach gpt/zroot1
+#geli attach gpt/zroot1
 kenv vfs.root.mountfrom="zfs:$pool/root"
 mkdir $tmpbase || true
 zpool import -o altroot=$tmpbase -o cachefile=/tmp/zpool.cache $pool
