@@ -156,7 +156,7 @@ EOM
 
 
 #for fsck -p
-[ -f $dst/etc/fstab ] || echo "/dev/mirror/boot / ufs rw 1 1" >$dst/etc/fstab
+[ -f $dst/etc/fstab ] || echo "/dev/gpt/boot / ufs rw 1 1" >$dst/etc/fstab
 
 grep -E "^(root|nobody):" $src/etc/master.passwd |sed 's!/bin/csh!/bin/sh!'> $dst/etc/master.passwd
 
