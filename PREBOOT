@@ -129,8 +129,8 @@ cat <<EOM > $dst/root/DWIM
 PATH=${PATH}:/bin:/sbin:/rescue
 set -ex
 fsck -p
-geli attach gpt/zroot0
-geli attach gpt/zroot1
+geli attach gpt/zroot
+#geli attach gpt/zroot1
 kenv vfs.root.mountfrom="zfs:$pool/root"
 reboot -r
 
@@ -145,8 +145,8 @@ tmpbase=/tmp/mnt
 cat <<EOM > $dst/root/FIX
 PATH=${PATH}:/bin:/sbin:/rescue
 fsck -p
-geli attach gpt/zroot0
-geli attach gpt/zroot1
+geli attach gpt/zroot
+#geli attach gpt/zroot1
 kenv vfs.root.mountfrom="zfs:$pool/root"
 mkdir $tmpbase || true
 zpool import -o altroot=$tmpbase -o cachefile=/tmp/zpool.cache $pool
@@ -156,7 +156,7 @@ EOM
 
 
 #for fsck -p
-[ -f $dst/etc/fstab ] || echo "/dev/mirror/boot / ufs rw 1 1" >$dst/etc/fstab
+[ -f $dst/etc/fstab ] || echo "/dev/gpt/boot / ufs rw 1 1" >$dst/etc/fstab
 
 grep -E "^(root|nobody):" $src/etc/master.passwd |sed 's!/bin/csh!/bin/sh!'> $dst/etc/master.passwd
 

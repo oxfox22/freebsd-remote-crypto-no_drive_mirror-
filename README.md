@@ -1,6 +1,7 @@
-# FreeBSD disk encryption with zfs, mirroring and remote-boot functionality
+# (Status: WORK IN PROGRESS) FreeBSD disk encryption with zfs and remote-boot functionality
+##This fork uses only one drive (instead two mirrord drives) and should run on FreeBSD 13.2 and 14.0
 
-This repository contiains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
+This repository contains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
 
 This is accompished by having a small ufs partition consisting of the kernel, modules and a statically linked dropbear. It enables networking, and starts dropbear to allow you to log on. Once you entered the password, the boot switches the root filesystem and boot resumes from the zfs same as a normal unencrypted boot.
 
@@ -10,25 +11,29 @@ If you are at the console, you can hit ^c to kill the dropbear and you will be d
 
 # Usage[Setup]:
 
-Boot a FreeBSD install (either memstick or disc1 is fine). And at the first window select "shell"
+Boot a FreeBSD install (either memstick or disc1 is fine). And at the first window (after Boot-Menu) select "shell"
 
 in the shell, get your network up and running, e.g. with
 
 `dhclient re0`
 
+then change to a writeable path:
+
+cd /tmp
+
 then fetch the files from this repo. For example directly from github:
 
 ```
-fetch https://raw.githubusercontent.com/Sec42/freebsd-remote-crypto/master/CRYPT
-fetch https://raw.githubusercontent.com/Sec42/freebsd-remote-crypto/master/PREBOOT
+fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-no_drive_mirror-/2-one_drive/CRYPT
+fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-no_drive_mirror-/2-one_drive/PREBOOT
 ```
 
-Check the names of your two drives.
+Check the name of your drive.
 ```
 dmesg|grep sectors
 ```
 
-If they are not "ada0" and "ada1", you will need to change the `geom0=` and `geom1=` lines at the top of the `CRYPT` script.
+If it is not "ada0", you will need to change the `geom0=` line at the top of the `CRYPT` script.
 
 Now run the script
 
@@ -36,7 +41,7 @@ Now run the script
 sh CRYPT
 ```
 
-It will ask you for your crypt passphrase (only once, so type carefully), later throw you into `vi` to edit a minimal `/etc/rc.conf` (set the hostname and IP) and after you quit the vi it should end with "All ok"
+It will ask you for your crypt passphrase (only once, so type carefully), later throw you into `ee` to edit a minimal `/etc/rc.conf` (set the hostname and IP) and after you quit the vi it should end with "All ok"
 
 After that, you can remove your installation media and reboot the machine. It will come up with a shell. Run "sh DWIM" and enter your passphrase to boot to the final system.
 
@@ -101,10 +106,6 @@ and you will be asked for the crypto passphrase (twice), after which the boot wi
 The `SSH` script is a template on how to enable SSH from the setup shell. This might be a useful starting point if you want to replicate this setup on a remote machine without console access.
 
 If you have a dropbear binary in `bin/` during the setup run of `CRYPT`, it will already copy it to the correct place.
-
-The `RE-FIX` script is an example on how to recover from a failed disk after it has been replaced.
-
-Essentially it is a copy of the relevant lines from the `CRYPT` script.
 
 # Help
 
