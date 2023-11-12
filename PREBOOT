@@ -51,6 +51,7 @@ mkdir -p $dst/dev
 mkdir -p $dst/var/empty
 ln -fs /tmp $dst/var/db
 ln -fs /tmp $dst/var/run
+mkdir /tmp/dhclient 		  	# this is EXPERIMENTAL to make dhclient not to complain about pidfile
 ln -fs /tmp $dst/var/tmp
 
 mkdir -p $dst/root
