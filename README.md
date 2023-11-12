@@ -20,8 +20,7 @@ In the shell:
 `kbdmap`
 
 
-
-* get your network up and running, e.g. with
+* get your network up and running, ( Check for devicename with `ifconfig` ) e.g. with
 
 `dhclient re0`
 
