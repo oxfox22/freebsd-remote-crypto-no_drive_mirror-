@@ -59,7 +59,7 @@ echo ""
 set -x
 
 geli init -s 4096 -J /tmp/pw /dev/gpt/zroot
-geli attach -j /tmp/pw /dev/gpt/zroot0
+geli attach -j /tmp/pw /dev/gpt/zroot
 
 gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 $geom0
 
