@@ -13,27 +13,36 @@ If you are at the console, you can hit ^c to kill the dropbear and you will be d
 
 Boot a FreeBSD install (either memstick or disc1 is fine). And at the first window (after Boot-Menu) select "shell"
 
-in the shell, get your network up and running, e.g. with
+In the shell:
+
+* [OPTIONAL] set new keyboard layout, if your non-english with
+
+`kbdmap'
+
+
+
+* get your network up and running, e.g. with
 
 `dhclient re0`
 
-then change to a writeable path:
+* change to a writeable path:
 
 `cd /tmp`
 
-then fetch the files from this repo. For example directly from github:
+* then fetch the files from this repo. For example directly from github:
 
 ```
 fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-single-drive/master/CRYPT
 fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-single-drive/master/PREBOOT
 ```
 
-Check the name of your drive.
+* Check the name of your drive.
 ```
 dmesg|grep sectors
 ```
 
 If it is not "ada0", you will need to change the `geom0=` line at the top of the `CRYPT` script.
+`ee CRYPT`
 
 Now run the script
 
