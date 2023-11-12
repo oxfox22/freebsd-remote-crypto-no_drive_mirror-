@@ -1,4 +1,4 @@
-# FreeBSD disk encryption with zfs and remote-boot functionality
+# (Status: WORK IN PROGRESS) FreeBSD disk encryption with zfs and remote-boot functionality
 ##This fork uses only one drive (instead two mirrord drives) and should run on FreeBSD 13.2 and 14.0
 
 This repository contains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
@@ -11,17 +11,21 @@ If you are at the console, you can hit ^c to kill the dropbear and you will be d
 
 # Usage[Setup]:
 
-Boot a FreeBSD install (either memstick or disc1 is fine). And at the first window select "shell"
+Boot a FreeBSD install (either memstick or disc1 is fine). And at the first window (after Boot-Menu) select "shell"
 
 in the shell, get your network up and running, e.g. with
 
 `dhclient re0`
 
+then change to a writeable path:
+
+cd /tmp
+
 then fetch the files from this repo. For example directly from github:
 
 ```
-fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto_sec42/master/CRYPT
-fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto_sec42/master/PREBOOT
+fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-no_drive_mirror-/2-one_drive/CRYPT
+fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-no_drive_mirror-/2-one_drive/PREBOOT
 ```
 
 Check the name of your drive.
