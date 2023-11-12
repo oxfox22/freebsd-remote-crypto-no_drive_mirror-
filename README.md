@@ -17,7 +17,7 @@ In the shell:
 
 * [OPTIONAL] set new keyboard layout, if your non-english with
 
-`kbdmap'
+`kbdmap`
 
 
 
