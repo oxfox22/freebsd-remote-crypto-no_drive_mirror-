@@ -18,9 +18,9 @@ in the shell, get your network up and running, e.g. with
 `dhclient re0`
 
 then change to a writeable path:
-
+...
 cd /tmp
-
+...
 then fetch the files from this repo. For example directly from github:
 
 ```
