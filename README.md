@@ -18,14 +18,16 @@ in the shell, get your network up and running, e.g. with
 `dhclient re0`
 
 then change to a writeable path:
+
 ...
 cd /tmp
 ...
+
 then fetch the files from this repo. For example directly from github:
 
 ```
-fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-no_drive_mirror-/2-one_drive/CRYPT
-fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-no_drive_mirror-/2-one_drive/PREBOOT
+fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-single-drive/master/CRYPT
+fetch https://raw.githubusercontent.com/oxfox22/freebsd-remote-crypto-single-drive/master/PREBOOT
 ```
 
 Check the name of your drive.
