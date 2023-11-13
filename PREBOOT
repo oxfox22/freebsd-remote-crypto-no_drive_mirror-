@@ -128,6 +128,8 @@ ln -fs /etc/termcap.small $dst/etc/termcap
 cp $src/usr/bin/tr $dst/bin
 cp $src/usr/bin/grep $dst/bin
 cp $src/usr/bin/sed $dst/bin
+cp $src/usr/sbin/kbdmap $dst/bin
+
 
 [ -f $dst/root/.profile ] || echo 'PATH=${PATH}:/bin:/sbin:/rescue:/usr/bin:/usr/sbin' > $dst/root/.profile
 
