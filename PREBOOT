@@ -124,12 +124,13 @@ fi
 done
 ln -fs /etc/termcap.small $dst/etc/termcap
 
-#experimental: ifnet does not work, complains about missing sed, tr & grep . so copy it it xboot/bin
+#ifnet does not work, complains about missing sed, tr & grep . so copy it it xboot/bin
 cp $src/usr/bin/tr $dst/bin
 cp $src/usr/bin/grep $dst/bin
 cp $src/usr/bin/sed $dst/bin
 
-cp $src/usr/sbin/kbdmap $dst/bin
+# something complains about missing: install
+cp $src/usr/bin/install $dst/bin
 
 # grep needs /usr/lib/libregex.so.1 
 mkdir -p $dst/usr/lib
