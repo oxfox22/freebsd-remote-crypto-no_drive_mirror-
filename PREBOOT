@@ -51,7 +51,7 @@ mkdir -p $dst/dev
 mkdir -p $dst/var/empty
 ln -fs /tmp $dst/var/db
 ln -fs /tmp $dst/var/run
-mkdir /tmp/dhclient 		  	# this is EXPERIMENTAL to make dhclient not to complain about pidfile
+#mkdir /tmp/dhclient 		  	# this is EXPERIMENTAL to make dhclient not to complain about pidfile # this didn't solve the problem
 ln -fs /tmp $dst/var/tmp
 
 mkdir -p $dst/root
@@ -123,6 +123,11 @@ else
 fi
 done
 ln -fs /etc/termcap.small $dst/etc/termcap
+
+#experimental: ifnet does not work, complains about missing sed, tr & grep . so copy it it xboot/bin
+cp $src/usr/bin/tr $dst/bin
+cp $src/usr/bin/grep $dst/bin
+cp $src/usr/bin/sed $dst/bin
 
 [ -f $dst/root/.profile ] || echo 'PATH=${PATH}:/bin:/sbin:/rescue:/usr/bin:/usr/sbin' > $dst/root/.profile
 
