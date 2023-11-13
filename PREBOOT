@@ -128,7 +128,13 @@ ln -fs /etc/termcap.small $dst/etc/termcap
 cp $src/usr/bin/tr $dst/bin
 cp $src/usr/bin/grep $dst/bin
 cp $src/usr/bin/sed $dst/bin
+
 cp $src/usr/sbin/kbdmap $dst/bin
+
+# grep needs /usr/lib/libregex.so.1 
+mkdir -p $dst/usr/lib
+cp $src/usr/lib/libregex.so.1  $dst/usr/lib
+
 
 #experimental: dhclient complains about missing user _dhcp... so add it to xboot/etc/passwd
 echo '_dhcp:*:65:65:dhcp programs:/var/empty:/usr/sbin/nologin' >> $dst/etc/passwd
