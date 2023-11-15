@@ -5,6 +5,7 @@ ATM : The Network won't start bcause dhclient refuses to start becaus user _DHCP
 
 
 ##This fork uses only one drive (instead two mirrord drives) and should run on FreeBSD 13.2 and 14.0
+-singel drive is functional (TODO:  at shutdown something tries to unmonut(?) the mirror drives.)
 
 This repository contains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
 
