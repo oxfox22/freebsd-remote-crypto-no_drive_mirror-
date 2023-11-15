@@ -1,4 +1,9 @@
 # (Status: WORK IN PROGRESS) FreeBSD disk encryption with zfs and remote-boot functionality
+ATM : The Network won't start bcause dhclient refuses to start becaus user _DHCP and user nobody are lacking in xboot enviroment.
+- right now nobody is in xboot/etc/master.passwd & xboot&etc/passwd , but dhclient still complains about missing user.
+  (Do i have to add xboot/etc/group also ??)
+
+
 ##This fork uses only one drive (instead two mirrord drives) and should run on FreeBSD 13.2 and 14.0
 
 This repository contains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
