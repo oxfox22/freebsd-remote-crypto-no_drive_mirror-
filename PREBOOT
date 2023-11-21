@@ -173,6 +173,7 @@ EOM
 [ -f $dst/etc/fstab ] || echo "/dev/gpt/boot / ufs rw 1 1" >$dst/etc/fstab
 
 grep -E "^root:" $src/etc/master.passwd |sed 's!/bin/csh!/bin/sh!'> $dst/etc/master.passwd
+grep -E "^_dhcp:" $src/etc/master.passwd>> $dst/etc/master.passwd
 grep -E "^nobody:" $src/etc/master.passwd>> $dst/etc/master.passwd
 
 
