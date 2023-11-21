@@ -1,11 +1,11 @@
-# (Status: WORK IN PROGRESS) FreeBSD disk encryption with zfs and remote-boot functionality
-ATM : The Network won't start bcause dhclient refuses to start becaus user _DHCP and user nobody are lacking in xboot enviroment.
-- right now nobody is in xboot/etc/master.passwd & xboot&etc/passwd , but dhclient still complains about missing user.
-  (Do i have to add xboot/etc/group also ??)
+# FreeBSD disk encryption with zfs and remote-boot functionality
+```
+IMPORTANT: * dhclient refuses to start (the original script was written for FreeBSD 11. Sorry, no DHCP at boot)
 
-
-##This fork uses only one drive (instead two mirrord drives) and should run on FreeBSD 13.2 and 14.0
--singel drive is functional (TODO:  at shutdown something tries to unmonut(?) the mirror drives.)
+           * This fork uses only one drive (instead two mirrord drives) and runs on FreeBSD 13.2
+           
+            * (TODO:  at shutdown something tries to unmonut(?) the mirror drives.)
+```
 
 This repository contains some scripts to help you set up a nearly full-disk-encrypted FreeBSD where you can enter the password via ssh.
 
@@ -70,7 +70,7 @@ To compile and install it,
 ```
 pkg install gmake indexinfo gettext-runtime
 cd /usr/ports/security/dropbear
-make OPTIONS_SET="STATIC ECDSA DSA BLOWFISH" BATCH=YES install clean
+make OPTIONS_SET="STATIC" BATCH=YES install clean
 pkg lock -y dropbear
 ```
 
