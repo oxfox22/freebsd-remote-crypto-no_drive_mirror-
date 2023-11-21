@@ -55,7 +55,7 @@ Now run the script
 sh CRYPT
 ```
 
-It will ask you for your crypt passphrase (only once, so type carefully), later throw you into `ee` to edit a minimal `/etc/rc.conf` (set the hostname and IP) and after you quit the vi it should end with "All ok"
+It will ask you for your crypt passphrase (only once, so type carefully), later throw you into `ee` to edit a minimal `/etc/rc.conf` (set the hostname and IP) and after you quit the `ee` it should end with "All ok"
 
 After that, you can remove your installation media and reboot the machine. It will come up with a shell. Run "sh DWIM" and enter your passphrase to boot to the final system.
 
@@ -99,7 +99,7 @@ and if necessary, update it.
 cd /usr/ports/security/dropbear
 pkg unlock -y dropbear
 pkg delete -y dropbear
-make OPTIONS_SET="STATIC ECDSA DSA BLOWFISH" BATCH=YES install clean
+make OPTIONS_SET="STATIC" BATCH=YES install clean
 pkg lock -y dropbear
 ```
 
