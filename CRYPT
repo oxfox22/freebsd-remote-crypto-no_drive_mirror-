@@ -113,7 +113,7 @@ cat << EOM >> $base/etc/rc.conf
 
 ifconfig_$if="inet $ip netmask 255.255.255.0"
 defaultrouter="$router"
-# DHClient isn't starting , so i was forced to used 'hard-coded' configs :(
+# DHClient isn't starting , so i was forced to use 'hard-coded' configs :(
 
 zfs_enable="YES"
 sshd_enable="YES"
