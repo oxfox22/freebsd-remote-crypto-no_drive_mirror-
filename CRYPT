@@ -111,11 +111,9 @@ cat << EOM >> $base/etc/rc.conf
 
 #hostname="$name"
 
-fconfig_$if="inet $ip netmask 255.255.255.0"
+ifconfig_$if="inet $ip netmask 255.255.255.0"
 defaultrouter="$router"
-# OR
- # this is untested by me!
-#ifconfig_$if="SYNCDHCP"	# according to this post: https://forums.freebsd.org/threads/dhcp-correct-configuration.42539/#post-236554      i suppose only "DHCP" would 'bite' the synchronous_dhclient='YES'
+# DHClient isn't starting , so i was forced to used 'hard-coded' configs :(
 
 zfs_enable="YES"
 sshd_enable="YES"
