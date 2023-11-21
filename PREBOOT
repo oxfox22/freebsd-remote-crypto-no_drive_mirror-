@@ -172,10 +172,11 @@ EOM
 #for fsck -p
 [ -f $dst/etc/fstab ] || echo "/dev/gpt/boot / ufs rw 1 1" >$dst/etc/fstab
 
-grep -E "^root:" $src/etc/master.passwd |sed 's!/bin/csh!/bin/sh!'> $dst/etc/master.passwd
-grep -E "^_dhcp:" $src/etc/master.passwd>> $dst/etc/master.passwd
-grep -E "^nobody:" $src/etc/master.passwd>> $dst/etc/master.passwd
 
+grep -E "^root:" $src/etc/master.passwd |sed 's!/bin/csh!/bin/sh!'> $dst/etc/master.passwd
+grep -E "^nobody:" $src/etc/master.passwd>> $dst/etc/master.passwd
+## experimental:this was for the fruitless test of getting dhclient to run
+#grep -E "^_dhcp:" $src/etc/master.passwd>> $dst/etc/master.passwd
 
 if [ "$1" = "setup" ] ; then
 
@@ -196,8 +197,8 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin
 export HOME PATH
 
 
-#experimental: dhclient complains about missing user _dhcp... so add it to xboot/etc/passwd
-echo '_dhcp:*:65:65:dhcp programs:/var/empty:/usr/sbin/nologin' >> $dst/etc/passwd
+## experimental: dhclient complains about missing user _dhcp... so add it to xboot/etc/passwd
+#echo '_dhcp:*:65:65:dhcp programs:/var/empty:/usr/sbin/nologin' >> $dst/etc/passwd
 
 . /etc/rc.subr
 load_rc_config 'XXX'
@@ -206,10 +207,10 @@ trap "_rc_conf_loaded=false; load_rc_config 'XXX'" ALRM
 
 PORT=22
 
-# To get dhclient working
-synchronous_dhclient="YES"
-export synchronous_dhclient
-mdmfs -s16m -p 1777 -S md /tmp
+## experimental:To get dhclient working
+#synchronous_dhclient="YES"
+#export synchronous_dhclient
+mdmfs -s16m -p 1777 -S md /tmp		# suppose this ist obsolet also..
 
 # perhaps ipfw deny all except tcp/22 and icmp/echo
 run_rc_script /etc/rc.d/netif start
