@@ -1,8 +1,13 @@
 # FreeBSD disk encryption with zfs and remote-boot functionality
 ```
-IMPORTANT: * dhclient refuses to start (the original script was written for FreeBSD 11. Sorry, no DHCP at boot)
+WARNING: * I wasn't able to upgrade from 13.2 to 14.0 because of some trouble with zfs & bootcode which I couldn't fix
+```
 
-           * This fork uses only one drive (instead two mirrord drives) and runs on FreeBSD 13.2
+
+```
+IMPORTANT: * IP hat to be STATIC , because dhclient refuses to start. Sorry no DHCP at boot
+
+           * This fork uses only one drive (instead two mirrord drives) and runs on FreeBSD 13.2 & 14.0
            
             * (TODO:  at shutdown something tries to unmonut(?) the mirror drives.)
 ```
