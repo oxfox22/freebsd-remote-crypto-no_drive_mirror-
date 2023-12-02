@@ -26,7 +26,7 @@ Boot a FreeBSD install (either memstick or disc1 is fine). And at the first wind
 
 In the shell:
 
-* [OPTIONAL] set new keyboard layout, if your is non-english:
+* [OPTIONAL] set new keyboard layout, if your is non-english (works only in 13.2) :
 
 `kbdmap`
 
