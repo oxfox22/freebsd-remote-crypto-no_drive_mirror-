@@ -7,7 +7,7 @@ WARNING: * I wasn't able to upgrade from 13.2 to 14.0 because of some trouble wi
 ```
 IMPORTANT: * IP hat to be STATIC , because dhclient refuses to start. Sorry no DHCP at boot
 
-           * This fork uses only one drive (instead two mirrord drives) and runs on FreeBSD 13.2 & 14.0
+           * This fork uses only one drive (instead two mirrord drives) and runs on FreeBSD 13.2 (currently working on 14.0 support :-)
            
             * (TODO:  at shutdown something tries to unmonut(?) the mirror drives.)
 ```
